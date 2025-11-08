@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolarInsight AI | Advanced Solar Energy Prediction</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        solar: {
+                            yellow: '#fbbf24',
+                            orange: '#f59e0b',
+                            gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 5px #fbbf24, 0 0 10px #fbbf24, 0 0 15px #fbbf24' },
+                            '100%': { boxShadow: '0 0 10px #f59e0b, 0 0 20px #f59e0b, 0 0 30px #f59e0b' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen font-sans">
+    <!-- Animated Background -->
+    <div class="fixed inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 z-0"></div>
+    <div class="fixed inset-0 bg-[url('https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3')] bg-cover bg-center mix-blend-overlay opacity-10 z-0"></div>
+
+    <!-- Main Container -->
+    <div class="relative z-10 container mx-auto px-4 py-6">
+        <!-- Header -->
+        <header class="mb-8 animate__animated animate__fadeInDown">
+            <div class="flex items-center justify-between bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 shadow-2xl">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-solar-yellow to-solar-orange rounded-xl flex items-center justify-center shadow-lg animate-float">
+                        <i class="fas fa-sun text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-3xl font-bold text-white">SolarInsight AI</h1>
+                        <p class="text-slate-300 text-sm">Advanced Solar Energy Prediction Platform</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <div class="text-solar-yellow font-semibold">by Ishani Chakravarty</div>
+                    <div class="text-slate-400 text-sm">AI-Powered Energy Analytics</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8 animate__animated animate__fadeInUp">
+            <div class="bg-gradient-to-br from-blue-500/20 to-cyan-400/20 backdrop-blur-lg rounded-2xl p-6 border border-white/10 shadow-xl">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-slate-300 text-sm">Model Accuracy</p>
+                        <p class="text-2xl font-bold text-white">98.7%</p>
+                    </div>
+                    <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-brain text-cyan-400 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-green-500/20 to-emerald-400/20 backdrop-blur-lg rounded-2xl p-6 border border-white/10 shadow-xl">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-slate-300 text-sm">Avg. Prediction</p>
+                        <p class="text-2xl font-bold text-white">245 kW</p>
+                    </div>
+                    <div class="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-bolt text-emerald-400 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-purple-500/20 to-pink-400/20 backdrop-blur-lg rounded-2xl p-6 border border-white/10 shadow-xl">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-slate-300 text-sm">Data Points</p>
+                        <p class="text-2xl font-bold text-white">68.7K</p>
+                    </div>
+                    <div class="w-12 h-12 bg-pink-500/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-database text-pink-400 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-orange-500/20 to-red-400/20 backdrop-blur-lg rounded-2xl p-6 border border-white/10 shadow-xl">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-slate-300 text-sm">Active Model</p>
+                        <p class="text-xl font-bold text-white" id="activeModel">XGBoost</p>
+                    </div>
+                    <div class="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-rocket text-red-400 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+            <!-- Prediction Panel -->
+            <div class="animate__animated animate__fadeInLeft">
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 shadow-2xl h-full">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-2xl font-bold text-white">Real-time Prediction</h2>
+                        <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                    </div>
+
+                    <form id="predictionForm" class="space-y-6">
+                        <!-- Environmental Parameters -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="flex items-center text-slate-300 text-sm">
+                                    <i class="fas fa-sun mr-2 text-solar-yellow"></i>
+                                    Solar Irradiation
+                                </label>
+                                <div class="relative">
+                                    <input type="range" min="0" max="2" step="0.1" id="irradiation" name="irradiation" 
+                                           class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer slider"
+                                           value="0.8">
+                                    <div class="flex justify-between text-xs text-slate-400 mt-1">
+                                        <span>0 kW/m²</span>
+                                        <span id="irradiationValue">0.8 kW/m²</span>
+                                        <span>2 kW/m²</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="flex items-center text-slate-300 text-sm">
+                                    <i class="fas fa-temperature-high mr-2 text-red-400"></i>
+                                    Ambient Temperature
+                                </label>
+                                <div class="relative">
+                                    <input type="range" min="-10" max="50" step="1" id="ambient_temperature" name="ambient_temperature"
+                                           class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer slider"
+                                           value="25">
+                                    <div class="flex justify-between text-xs text-slate-400 mt-1">
+                                        <span>-10°C</span>
+                                        <span id="ambientTempValue">25°C</span>
+                                        <span>50°C</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="flex items-center text-slate-300 text-sm">
+                                    <i class="fas fa-thermometer-full mr-2 text-orange-400"></i>
+                                    Module Temperature
+                                </label>
+                                <div class="relative">
+                                    <input type="range" min="0" max="80" step="1" id="module_temperature" name="module_temperature"
+                                           class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer slider"
+                                           value="35">
+                                    <div class="flex justify-between text-xs text-slate-400 mt-1">
+                                        <span>0°C</span>
+                                        <span id="moduleTempValue">35°C</span>
+                                        <span>80°C</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="flex items-center text-slate-300 text-sm">
+                                    <i class="fas fa-clock mr-2 text-cyan-400"></i>
+                                    Time of Day
+                                </label>
+                                <div class="relative">
+                                    <input type="range" min="0" max="23" step="1" id="hour" name="hour"
+                                           class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer slider"
+                                           value="12">
+                                    <div class="flex justify-between text-xs text-slate-400 mt-1">
+                                        <span>00:00</span>
+                                        <span id="hourValue">12:00</span>
+                                        <span>23:00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Date Parameters -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-white/10">
+                            <div class="space-y-2">
+                                <label class="flex items-center text-slate-300 text-sm">
+                                    <i class="fas fa-calendar-day mr-2 text-green-400"></i>
+                                    Day of Month
+                                </label>
+                                <select id="day" name="day" class="w-full bg-slate-800/50 border border-slate-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-solar-yellow transition-all">
+                                    <!-- Options will be populated by JavaScript -->
+                                </select>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="flex items-center text-slate-300 text-sm">
+                                    <i class="fas fa-calendar-alt mr-2 text-purple-400"></i>
+                                    Month
+                                </label>
+                                <select id="month" name="month" class="w-full bg-slate-800/50 border border-slate-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-solar-yellow transition-all">
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6" selected>June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Prediction Button -->
+                        <button type="submit" 
+                                class="w-full bg-gradient-to-r from-solar-yellow to-solar-orange hover:from-solar-orange hover:to-solar-yellow text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl animate-glow">
+                            <i class="fas fa-bolt mr-2"></i>
+                            Predict AC Power Output
+                        </button>
+                    </form>
+
+                    <!-- Result Display -->
+                    <div id="result" class="mt-6 hidden animate__animated animate__fadeInUp">
+                        <div class="bg-gradient-to-r from-green-500/20 to-emerald-500/20 backdrop-blur-lg rounded-2xl p-6 border border-green-400/30 shadow-2xl">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-sm font-semibold text-green-300 uppercase tracking-wider">Prediction Result</h4>
+                                    <div class="mt-2">
+                                        <p class="text-4xl font-bold text-white" id="predictionValue">0 kW</p>
+                                        <p class="text-green-300 text-sm mt-1" id="modelInfo">Using AI Model</p>
+                                    </div>
+                                </div>
+                                <div class="w-16 h-16 bg-green-500/20 rounded-2xl flex items-center justify-center">
+                                    <i class="fas fa-bolt text-green-400 text-2xl"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex items-center text-green-300 text-sm">
+                                <i class="fas fa-check-circle mr-2"></i>
+                                <span>High confidence prediction based on current parameters</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visualization Panel -->
+            <div class="animate__animated animate__fadeInRight">
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 shadow-2xl h-full">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-2xl font-bold text-white">Performance Analytics</h2>
+                        <div class="flex space-x-2">
+                            <button id="chartToggle" class="bg-slate-700/50 hover:bg-slate-600/50 text-white px-3 py-1 rounded-lg transition-all text-sm">
+                                <i class="fas fa-chart-line mr-1"></i>Toggle View
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Chart Container -->
+                    <div class="h-96">
+                        <canvas id="powerChart"></canvas>
+                    </div>
+
+                    <!-- Additional Metrics -->
+                    <div class="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-white/10">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-solar-yellow" id="maeValue">16.37</div>
+                            <div class="text-slate-400 text-xs">Mean Absolute Error</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-cyan-400" id="rmseValue">45.67</div>
+                            <div class="text-slate-400 text-xs">Root Mean Square Error</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-green-400" id="r2Value">0.9865</div>
+                            <div class="text-slate-400 text-xs">R² Score</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-8 text-center text-slate-400 text-sm">
+            <p>SolarInsight AI Platform • Advanced Machine Learning for Renewable Energy Optimization</p>
+            <p class="mt-1">Built with ❤️ by Ishani Chakravarty</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+</body>
+</html>
