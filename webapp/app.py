@@ -37,7 +37,7 @@ def predict():
 
 @app.route('/series')
 def get_series():
-    \"\"\"Generate demo chart data with CURRENT timestamps - UPDATED NOVEMBER\"\"\"
+    
     timestamps = []
     actual = []
     predicted = []
