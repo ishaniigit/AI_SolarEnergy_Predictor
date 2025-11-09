@@ -48,7 +48,7 @@ def get_series():
         point_time = current_time - timedelta(hours=(49 - i))
         
         # CURRENT TIMESTAMP - NOT JUNE
-        timestamp = point_time.strftime("%b %d, %H:%M")  # This shows CURRENT month
+        timestamp = point_time.strftime("%m/%d %H:%M")   # This shows CURRENT month
         timestamps.append(timestamp)
         
         hour = point_time.hour
