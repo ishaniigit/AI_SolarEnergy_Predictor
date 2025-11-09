@@ -6,8 +6,17 @@ import joblib
 from pathlib import Path
 import sys
 import os
+import sys
+from pathlib import Path
 
-# Add project root to path
+# Vercel
+if 'VERCEL' in os.environ:
+    # Add project root to path for Vercel
+    project_root = Path(__file__).parent.parent
+    sys.path.append(str(project_root))
+    sys.path.append(str(project_root / "src"))
+
+
 project_root = Path(__file__).parent.parent
 sys.path.append(str(project_root / "src"))
 
@@ -15,13 +24,13 @@ from utils import build_features, get_feature_list
 
 app = Flask(__name__)
 
-# Load models and scaler
+
 def load_models():
     models = {}
     try:
         models_dir = project_root / "models"
         
-        # Check if models exist
+        
         scaler_path = models_dir / "scaler.pkl"
         xgb_path = models_dir / "xgb_model.pkl"
         rf_path = models_dir / "rf_model.pkl"
@@ -36,11 +45,11 @@ def load_models():
         if not rf_path.exists():
             raise FileNotFoundError("Random Forest model not found - please run train.py first")
         
-        # Load scaler
+       
         models['scaler'] = joblib.load(scaler_path)
         print("Scaler loaded successfully")
         
-        # Try to load XGBoost first, fall back to Random Forest
+            # Try to load XGBoost model first
         try:
             if xgb_path.exists():
                 models['model'] = joblib.load(xgb_path)

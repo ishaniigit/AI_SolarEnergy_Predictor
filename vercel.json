@@ -1,0 +1,23 @@
+﻿{
+  \"version\": 2,
+  \"builds\": [
+    {
+      \"src\": \"webapp/app.py\",
+      \"use\": \"@vercel/python\"
+    },
+    {
+      \"src\": \"webapp/static/**\",
+      \"use\": \"@vercel/static\"
+    },
+    {
+      \"src\": \"webapp/templates/**\",
+      \"use\": \"@vercel/static\"
+    }
+  ],
+  \"routes\": [
+{
+      \"src\": \"/(.*)\",
+      \"dest\": \"webapp/app.py\"
+    }
+  ]
+}
