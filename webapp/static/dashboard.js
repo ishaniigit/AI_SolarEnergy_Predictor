@@ -241,9 +241,10 @@ class SolarDashboard {
     updateChart(data) {
         if (!this.chart) return;
 
+        // FIXED: Use timestamp strings directly instead of converting to Date objects
         this.chart.data.labels = data.timestamps.map((ts, index) => {
             if (index % 20 === 0) {
-                return new Date(ts).toLocaleTimeString();
+                return ts; // Use the timestamp string directly "11/07 08:02"
             }
             return '';
         });
@@ -262,7 +263,8 @@ class SolarDashboard {
         const now = new Date();
         for (let i = 0; i < 200; i++) {
             const time = new Date(now.getTime() - (199 - i) * 60000);
-            timestamps.push(time.toISOString());
+            // Use the same format as backend
+            timestamps.push(time.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' }) + ' ' + time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false }));
             
             const base = 200 + Math.sin(i * 0.1) * 50;
             actual.push(base + Math.random() * 20);
@@ -294,7 +296,8 @@ class SolarDashboard {
         for (let i = 0; i < 200; i++) {
             const date = new Date();
             date.setDate(date.getDate() - 199 + i);
-            timestamps.push(date.toLocaleDateString());
+            // Use the same format as backend
+            timestamps.push(date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' }) + ' ' + date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false }));
             
             const seasonal = Math.sin((i / 200) * 2 * Math.PI) * 30;
             const base = 150 + seasonal;
@@ -361,7 +364,7 @@ class SolarDashboard {
         
         // Add the prediction as a new point in the chart
         const now = new Date();
-        const timestamp = now.toLocaleTimeString();
+        const timestamp = now.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' }) + ' ' + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
         
         this.chart.data.labels.push(timestamp);
         this.chart.data.datasets[1].data.push(prediction);
@@ -395,10 +398,12 @@ class SolarDashboard {
     }
 }
 
-
+// Initialize the dashboard when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     new SolarDashboard();
 });
+
+// Add some visual effects
 document.addEventListener('mousemove', (e) => {
     const cards = document.querySelectorAll('.card-hover');
     cards.forEach(card => {
