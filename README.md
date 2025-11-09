@@ -71,3 +71,5 @@ A clean, modern web interface enables real-time prediction:
 
 ### **🔗 Live Local Access**
 
+### Deployed On Vercel
+https://solar-energy-project-76amy8hrl-ishani-chakravartys-projects.vercel.app/
