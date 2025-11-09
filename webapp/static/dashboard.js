@@ -16,18 +16,19 @@ class SolarDashboard {
     }
 
     setCurrentDateTime() {
-        const now = new Date();
-        
-        // Set hour slider
-        document.getElementById('hour').value = now.getHours();
-        this.updateHourDisplay(now.getHours());
-        
-        // Set day select
-        this.populateDaySelect();
-        document.getElementById('day').value = now.getDate();
-        
-        // Set month select (already set in HTML)
-    }
+    const now = new Date();
+    
+    // Set hour slider
+    document.getElementById('hour').value = now.getHours();
+    this.updateHourDisplay(now.getHours());
+    
+    // Set day select
+    this.populateDaySelect();
+    document.getElementById('day').value = now.getDate();
+    
+    // AUTO-SET CURRENT MONTH (FIXED)
+    document.getElementById('month').value = now.getMonth() + 1;
+}
 
     populateDaySelect() {
         const daySelect = document.getElementById('day');
