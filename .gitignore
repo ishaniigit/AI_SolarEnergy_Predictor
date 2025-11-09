@@ -1,1 +1,7 @@
 .vercel
+/models/
+/data/
+/notebooks/
+/src/
+*.pkl
+*.csv
