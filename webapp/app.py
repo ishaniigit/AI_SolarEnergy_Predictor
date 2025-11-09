@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, request, jsonify
 import random
+import datetime
+from datetime import timedelta
 
 app = Flask(__name__)
 
@@ -43,15 +45,23 @@ def predict():
 
 @app.route('/series')
 def get_series():
-    """Generate demo chart data"""
+    """Generate demo chart data with CURRENT timestamps"""
     timestamps = []
     actual = []
     predicted = []
     
+    # Start from current time and go backwards
+    current_time = datetime.datetime.now()
+    
     for i in range(50):
-        hour = i % 24
-        day = i // 24 + 1
-        timestamps.append(f"Jun {day}, {hour:02d}:00")
+        # Go backwards in time (most recent data first)
+        point_time = current_time - timedelta(hours=(49 - i))
+        
+        # Format timestamp nicely
+        timestamp = point_time.strftime("%b %d, %H:%M")  # Example: "Nov 09, 14:30"
+        timestamps.append(timestamp)
+        
+        hour = point_time.hour
         
         # Solar pattern - zero at night, peak at noon
         if 6 <= hour <= 18:
